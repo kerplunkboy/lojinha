@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,27 +11,31 @@ namespace Loja.Classes
     {
 
         private bool _isNew;
-
-        public bool IsNewm
+        
+        [Browsable(false)]
+        public bool IsNew
         {
             get { return _isNew; }
         }
 
         private bool _isModified;
+
+        [Browsable(false)]
         public bool IsModified
         {
             get { return _isModified; }
         }
 
         private int _codigo;
+        [DisplayName("Código")]
         public int Codigo
         {
-            get 
-            { 
-                return _codigo; 
+            get
+            {
+                return _codigo;
             }
-            set 
-            { 
+            set
+            {
                 if (value < 0)
                 {
                     throw new Loja.Excecoes.ValidacaoException("O código do cliente não pode ser negativo");
@@ -39,21 +44,21 @@ namespace Loja.Classes
                 this._isModified = true;
             }
         }
-
+        
         private string _nome;
+        [DisplayName("Nome do cliente")]
         public string Nome
         {
             get { return _nome; }
-            set 
+            set
             {
-                if (value.Length <= 3)
-                    throw new Loja.Excecoes.ValidacaoException("O nome do cliente precisa ter no mínimo 4 caracteres");
                 _nome = value;
                 this._isModified = true;
             }
         }
 
         private int? _tipo;
+        [DisplayName("Tipo")]
         public int? Tipo
         {
             get { return _tipo; }
@@ -61,6 +66,7 @@ namespace Loja.Classes
         }
 
         private DateTime? _dataCadastro;
+        [DisplayName("Data de cadastro")]
         public DateTime? DataCadastro
         {
             get { return _dataCadastro; }
