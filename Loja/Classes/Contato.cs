@@ -1,13 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 //Server=.\sqlexpress;Database=loja;Trusted_Connection=True;
 namespace Loja.Classes
 {
-    public class Contato
+    public partial class Contato : Backwork<Contato>
     {
+        private bool _isNew;
+
+        [Browsable(false)]
+        public bool IsNew
+        {
+            get { return _isNew; }
+        }
+
+        private bool _isModified;
+        [Browsable(false)]
+        public bool IsModified
+        {
+            get { return _isModified; }
+        }
         private int _codigo;
         public int Codigo
         {
@@ -28,13 +43,13 @@ namespace Loja.Classes
             get { return _tipo; }
             set { _tipo = value; }
         }
-
-        
-        public void Gravar()
+        private int _cliente;
+        [Browsable(false)]
+        public int Cliente
         {
-            
-            int x = 1;
-           
+            get { return _cliente; }
+            set { _cliente = value; }
         }
+
     }
 }

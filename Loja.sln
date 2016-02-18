@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Loja", "Loja\Loja.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaManager", "LojaManager\LojaManager.csproj", "{B8187162-16DE-4385-A07C-D600CE7CF8C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LojaAPI", "LojaAPI\LojaAPI.csproj", "{65567EAF-0F02-40B2-AE92-61E7719BA7D8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B8187162-16DE-4385-A07C-D600CE7CF8C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8187162-16DE-4385-A07C-D600CE7CF8C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8187162-16DE-4385-A07C-D600CE7CF8C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65567EAF-0F02-40B2-AE92-61E7719BA7D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65567EAF-0F02-40B2-AE92-61E7719BA7D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65567EAF-0F02-40B2-AE92-61E7719BA7D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65567EAF-0F02-40B2-AE92-61E7719BA7D8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

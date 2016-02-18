@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="themes/icon.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.easyui.min.js"></script>
+
+</head>
+<body>
+    <table class="easyui-datagrid" title="Basic DataGrid" style="width:700px;height:250px"
+           data-options="singleSelect:true,collapsible:true,url:'http://localhost:56754/api/clientes/8',
+           method:'get'" sortname="Codigo" sortorder="asc"
+           rownumbers="true" pagination="true">
+        <thead>
+            <tr>
+                <th data-options="field:'Codigo',width:80" sortable="true">Código</th>
+                <th data-options="field:'Nome',width:100" sortable="true">Nome</th>
+                <th data-options="field:'Tipo',width:80">Tipo</th>
+                <th data-options="field:'DataCadastro',width:80" sortable="true" formatter="formatDate">Data de Cadastro</th>
+            </tr>
+        </thead>
+    </table>
+    <script>
+        function formatDate(valor, linha)
+        {
+            var data = new Date(valor);
+            data.setDate(data.getDate() + 1);
+            return  data.toLocaleDateString();
+        }
+    </script>
+</body>
+</html>

@@ -1,33 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.ComponentModel.DataAnnotations;
 namespace Loja.Classes
 {
-    public partial class Cliente
+    public partial class Cliente : Backwork<Cliente>, ICRUD
     {
 
-        private bool _isNew;
-        
-        [Browsable(false)]
-        public bool IsNew
-        {
-            get { return _isNew; }
-        }
-
-        private bool _isModified;
-
-        [Browsable(false)]
-        public bool IsModified
-        {
-            get { return _isModified; }
-        }
 
         private int _codigo;
+        [Key]
         [DisplayName("Código")]
+        [DataObjectField(true, true, false)]
         public int Codigo
         {
             get
@@ -44,9 +28,10 @@ namespace Loja.Classes
                 this._isModified = true;
             }
         }
-        
+
         private string _nome;
         [DisplayName("Nome do cliente")]
+        [DataObjectField(false, false, true)]
         public string Nome
         {
             get { return _nome; }
@@ -59,6 +44,7 @@ namespace Loja.Classes
 
         private int? _tipo;
         [DisplayName("Tipo")]
+        [DataObjectField(false, false, true)]
         public int? Tipo
         {
             get { return _tipo; }
@@ -67,6 +53,7 @@ namespace Loja.Classes
 
         private DateTime? _dataCadastro;
         [DisplayName("Data de cadastro")]
+        [DataObjectField(false, false, true)]
         public DateTime? DataCadastro
         {
             get { return _dataCadastro; }
@@ -74,5 +61,18 @@ namespace Loja.Classes
         }
 
         public List<Contato> Contatos { get; set; }
+
+        private bool _isNew;
+        private bool _isModified;
+        [Browsable(false)]
+        public bool IsNew
+        {
+            get { return _isNew; }
+        }
+        [Browsable(false)]
+        public bool IsModified
+        {
+            get { return _isModified; }
+        }
     }
 }

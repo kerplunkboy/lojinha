@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -39,10 +40,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Classes\Backwork.cs" />
     <Compile Include="Classes\Cliente.cs" />
     <Compile Include="Classes\Contato.cs" />
     <Compile Include="Excecoes\ExcecoesCliente.cs" />
     <Compile Include="Metodos\MetodosCliente.cs" />
+    <Compile Include="Metodos\MetodosContato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
