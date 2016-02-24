@@ -206,45 +206,6 @@ namespace Loja.Classes
             }
             return _return;
         }
-
-        public T GetByPrimaryKey(object value)
-        {
-            T _return = null;
-            using (SqlConnection cn = new SqlConnection("Server=.\\sqlexpress;Database=loja;Trusted_Connection=True;"))
-            {
-                try
-                {
-                    cn.Open();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = cn;
-                    cmd.CommandText = "Select * From {0} Where {1}";
-                    PropertyInfo pro = (PropertyInfo)typeof(T).GetProperties().ToList().FirstOrDefault(
-                        p => p.GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null);
-
-
-                    cmd.Parameters.AddWithValue("@" + pro.Name, ChangeType(value, pro.PropertyType));
-                    cmd.CommandText = string.Format(cmd.CommandText, typeof(T).Name, pro.Name + "=@" + pro.Name);
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.HasRows)
-                        {
-                            dr.Read();
-                            _return = new T();
-                            _return = ConvertRowToEntity(dr);
-                        }
-                    }
-
-                }
-            }
-            return _return;
-        }
         public Int32? Next()
         {
             Int32? _return = 0;
@@ -291,6 +252,92 @@ namespace Loja.Classes
                 Update();
 
 
+        }
+        public List<T> GetAll()
+        {
+            List<T> _return = null;
+
+            using (SqlCommand cmd = GetSelectCommand())
+            {
+                using (SqlDataReader dr = cmd.ExecuteReader())
+                {
+                    if (dr.HasRows)
+                    {
+                        _return = new List<T>();
+
+                        while(dr.Read())
+                        {
+                            _return.Add(ConvertRowToEntity(dr));
+                        }
+                    }
+                }
+            }
+
+            return _return;
+        }
+        public SqlCommand GetSelectCommand()
+        {
+            SqlCommand _return = null;
+
+            try
+            {
+                _return.CommandText = "Select * From {0}";
+                _return.CommandText = string.Format(_return.CommandText, typeof(T).Name);
+                _return.Connection = new SqlConnection();
+                _return.Connection.ConnectionString = "Server=.\\sqlexpress;Database=loja;Trusted_Connection=True;";
+                _return.Connection.Open();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return _return;
+        }
+        public T GetByPrimaryKey(object value)
+        {
+            T _return = null;
+            using (SqlConnection cn = new SqlConnection("Server=.\\sqlexpress;Database=loja;Trusted_Connection=True;"))
+            {
+                try
+                {
+                    cn.Open();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                using (SqlCommand cmd = new SqlCommand())
+                {
+                    cmd.Connection = cn;
+                    cmd.CommandText = "Select * From {0} Where {1}";
+                    PropertyInfo pro = (PropertyInfo)typeof(T).GetProperties().ToList().FirstOrDefault(
+                        p => p.GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null);
+
+
+                    cmd.Parameters.AddWithValue("@" + pro.Name, ChangeType(value, pro.PropertyType));
+                    cmd.CommandText = string.Format(cmd.CommandText, typeof(T).Name, pro.Name + "=@" + pro.Name);
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.HasRows)
+                        {
+                            dr.Read();
+                            _return = new T();
+                            _return = ConvertRowToEntity(dr);
+                        }
+                    }
+
+                }
+            }
+            return _return;
+        }
+        internal void SetSelf(T Entity)
+        {
+            foreach (PropertyInfo pro in Entity.GetType().GetProperties())
+            {
+                if (this.GetType().GetProperty(pro.Name).GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null)
+                    this.GetType().GetProperty(pro.Name).SetValue(this, pro.GetValue(Entity));
+            }
         }
     }
 }

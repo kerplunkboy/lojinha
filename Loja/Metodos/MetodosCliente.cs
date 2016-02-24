@@ -48,64 +48,7 @@ namespace Loja.Classes
             this._isNew = false;
             this._isModified = false;
         }
-        private void SetSelf(Cliente Entity)
-        {
-            foreach (PropertyInfo pro in Entity.GetType().GetProperties())
-            {
-                if (this.GetType().GetProperty(pro.Name).GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null)
-                    this.GetType().GetProperty(pro.Name).SetValue(this, pro.GetValue(Entity));
-            }
-        }
-    
-        public List<Cliente> Todos()
-        {
-            List<Cliente> _return = null;
-            using (SqlConnection cn = new SqlConnection("Server=.\\sqlexpress;Database=loja;Trusted_Connection=True;"))
-            {
-                try
-                {
-                    cn.Open();
-                }
-                catch (Exception)
-                {
 
-                    throw;
-                }
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = cn;
-                    cmd.CommandText = "Select * From Cliente";
-
-                    using (SqlDataReader dr = cmd.ExecuteReader())
-                    {
-                        if (dr.HasRows)
-                        {
-                            while (dr.Read())
-                            {
-
-                                Cliente cli = ConvertRowToEntity(dr);
-                                //cli._codigo = dr.GetInt32(dr.GetOrdinal("Codigo"));
-                                //cli._nome = dr.GetString(dr.GetOrdinal("Nome"));
-                                //cli._tipo = dr.GetInt32(dr.GetOrdinal("Tipo"));
-                                //cli._dataCadastro = dr.GetDateTime(dr.GetOrdinal("DataCadastro"));
-
-                                cli.Contatos = Contato.Todos(cli._codigo);
-
-                                if (_return == null)
-                                    _return = new List<Cliente>();
-
-                                cli._isNew = false;
-
-                                _return.Add(cli);
-                            }
-
-                        }
-                    }
-                }
-            }
-
-            return _return;
-        }
 
         public void Dispose()
         {

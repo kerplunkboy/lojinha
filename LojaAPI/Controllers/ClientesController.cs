@@ -32,7 +32,7 @@ namespace LojaAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            List<Cliente> re = new Cliente().Todos();
+            List<Cliente> re = new Cliente().GetAll();
             if (order == "asc")
             {
                 switch (sort)
