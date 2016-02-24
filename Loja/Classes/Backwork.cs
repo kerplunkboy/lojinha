@@ -281,6 +281,7 @@ namespace Loja.Classes
 
             try
             {
+                _return = new SqlCommand();
                 _return.CommandText = "Select * From {0}";
                 _return.CommandText = string.Format(_return.CommandText, typeof(T).Name);
                 _return.Connection = new SqlConnection();
