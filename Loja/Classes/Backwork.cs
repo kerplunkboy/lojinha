@@ -186,23 +186,22 @@ namespace Loja.Classes
                 {
                     throw;
                 }
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.CommandText = "Delete From {0} Where {1}";
-                    cmd.Connection = cn;
 
-                    foreach (PropertyInfo pro in typeof(T).GetProperties().ToList().Where(
-                         p => p.GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null))
-                    {
-                        DataObjectFieldAttribute att = (DataObjectFieldAttribute)pro.GetCustomAttribute(typeof(DataObjectFieldAttribute));
-                        if (att.PrimaryKey)
-                        {
-                            chave = pro.Name + "=@" + pro.Name;
-                            _return.Parameters.AddWithValue("@" + pro.Name, pro.GetValue(this));
-                        }
-                    }
-                    _return.CommandText = string.Format(_return.CommandText, tabela, chave);
+                _return.CommandText = "Delete From {0} Where {1}";
+                _return.Connection = cn;
+
+                PropertyInfo pro = typeof(T).GetProperties().ToList().FirstOrDefault(
+                     p => p.GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null);
+
+                DataObjectFieldAttribute att = (DataObjectFieldAttribute)pro.GetCustomAttribute(typeof(DataObjectFieldAttribute));
+                if (att.PrimaryKey)
+                {
+                    chave = pro.Name + "=@" + pro.Name;
+                    _return.Parameters.AddWithValue("@" + pro.Name, pro.GetValue(this));
                 }
+
+                _return.CommandText = string.Format(_return.CommandText, tabela, chave);
+
             }
             return _return;
         }
@@ -265,7 +264,7 @@ namespace Loja.Classes
                     {
                         _return = new List<T>();
 
-                        while(dr.Read())
+                        while (dr.Read())
                         {
                             _return.Add(ConvertRowToEntity(dr));
                         }
@@ -334,10 +333,13 @@ namespace Loja.Classes
         }
         internal void SetSelf(T Entity)
         {
-            foreach (PropertyInfo pro in Entity.GetType().GetProperties())
+            if (Entity != null)
             {
-                if (this.GetType().GetProperty(pro.Name).GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null)
-                    this.GetType().GetProperty(pro.Name).SetValue(this, pro.GetValue(Entity));
+                foreach (PropertyInfo pro in Entity.GetType().GetProperties())
+                {
+                    if (this.GetType().GetProperty(pro.Name).GetCustomAttribute(typeof(DataObjectFieldAttribute)) != null)
+                        this.GetType().GetProperty(pro.Name).SetValue(this, pro.GetValue(Entity));
+                }
             }
         }
     }
