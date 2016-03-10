@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.SqlClient;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 public static class MetodosExtensao
 {
@@ -48,8 +49,6 @@ namespace Loja.Classes
             this._isNew = false;
             this._isModified = false;
         }
-
-
         public void Dispose()
         {
             this.Gravar();

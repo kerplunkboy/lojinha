@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+
 namespace Loja.Classes
 {
     public partial class Cliente : Backwork<Cliente>, ICRUD
@@ -9,9 +11,9 @@ namespace Loja.Classes
 
 
         private int _codigo;
-        [Key]
         [DisplayName("Código")]
         [DataObjectField(true, true, false)]
+        [Key]
         public int Codigo
         {
             get
@@ -61,7 +63,6 @@ namespace Loja.Classes
         }
 
         public List<Contato> Contatos { get; set; }
-
         private bool _isNew;
         private bool _isModified;
         [Browsable(false)]

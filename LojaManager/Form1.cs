@@ -22,7 +22,7 @@ namespace LojaManager
             dataGridView1.EditMode = DataGridViewEditMode.EditProgrammatically;
             dataGridView1.SelectionMode= DataGridViewSelectionMode.FullRowSelect;
             
-            dados.DataSource = new BindingList<Cliente>(new Cliente().Todos());
+            dados.DataSource = new BindingList<Cliente>(new Cliente().GetAll());
             dataGridView1.DataSource = dados;
 
             dados.CurrentItemChanged += dados_CurrentItemChanged;
@@ -36,6 +36,7 @@ namespace LojaManager
         void dados_CurrentItemChanged(object sender, EventArgs e)
         {
             dgvContatos.DataSource = ((Cliente)dados.Current).Contatos;
+
         }
 
         void dados_CurrentChanged(object sender, EventArgs e)
