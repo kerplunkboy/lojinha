@@ -1,36 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Loja.Classes
 {
-    public partial class Cliente
+    public partial class Cliente : Backwork<Cliente>, ICRUD
     {
 
-        private bool _isNew;
-
-        public bool IsNewm
-        {
-            get { return _isNew; }
-        }
-
-        private bool _isModified;
-        public bool IsModified
-        {
-            get { return _isModified; }
-        }
 
         private int _codigo;
+        [DisplayName("Código")]
+        [DataObjectField(true, true, false)]
+        [Key]
         public int Codigo
         {
-            get 
-            { 
-                return _codigo; 
+            get
+            {
+                return _codigo;
             }
-            set 
-            { 
+            set
+            {
                 if (value < 0)
                 {
                     throw new Loja.Excecoes.ValidacaoException("O código do cliente não pode ser negativo");
@@ -41,19 +32,21 @@ namespace Loja.Classes
         }
 
         private string _nome;
+        [DisplayName("Nome do cliente")]
+        [DataObjectField(false, false, true)]
         public string Nome
         {
             get { return _nome; }
-            set 
+            set
             {
-                if (value.Length <= 3)
-                    throw new Loja.Excecoes.ValidacaoException("O nome do cliente precisa ter no mínimo 4 caracteres");
                 _nome = value;
                 this._isModified = true;
             }
         }
 
         private int? _tipo;
+        [DisplayName("Tipo")]
+        [DataObjectField(false, false, true)]
         public int? Tipo
         {
             get { return _tipo; }
@@ -61,6 +54,8 @@ namespace Loja.Classes
         }
 
         private DateTime? _dataCadastro;
+        [DisplayName("Data de cadastro")]
+        [DataObjectField(false, false, true)]
         public DateTime? DataCadastro
         {
             get { return _dataCadastro; }
@@ -68,5 +63,17 @@ namespace Loja.Classes
         }
 
         public List<Contato> Contatos { get; set; }
+        private bool _isNew;
+        private bool _isModified;
+        [Browsable(false)]
+        public bool IsNew
+        {
+            get { return _isNew; }
+        }
+        [Browsable(false)]
+        public bool IsModified
+        {
+            get { return _isModified; }
+        }
     }
 }

@@ -10,12 +10,8 @@ namespace ConsoleApplication1
     {
         static void Main(string[] args)
         {
-
-
-            Loja.Classes.Cliente cli2 = new Loja.Classes.Cliente(2);
-
-            cli2.Nome = "Zezinho";
-            cli2.Update();
+            
+            Loja.Classes.Cliente cli = new Loja.Classes.Cliente(1);
 
             //using (Classes.Cliente cli = new Classes.Cliente())
             //{
